@@ -16,7 +16,6 @@ class PageServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/pages.php', 'pages'
         );
 
-        $this->app->register(\Cviebrock\EloquentSluggable\ServiceProvider::class);
         $this->app->register(\Gbrock\Pages\Providers\PageRouteServiceProvider::class);
     }
 

@@ -1,6 +1,7 @@
 <?php namespace Gbrock\Pages\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Gbrock\Pages\Traits\Domainable;
 use Gbrock\Pages\Traits\Excerptable;
 use Gbrock\Pages\Traits\Publishable;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model {
 
-    use Sluggable,
+    use HasSlug,
         SoftDeletes,
         Publishable,
         Domainable,
@@ -39,26 +40,11 @@ class Page extends Model {
         'deleted_at',
     ];
 
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
+    public function getSlugOptions()
     {
-        return [
-            'slug' => [
-                'source' => 'title',
-                'method' => [self::class, 'generateSlug'],
-            ]
-        ];
-    }
-
-    protected function generateSlug($string)
-    {
-        $result = strtolower(preg_replace('/[^a-z0-9\-_\/]+/i', config('pages.slug_separator', '-'), $string));
-        $result = trim($result, '-');
-        return preg_replace('/\/\-/', '/', $result);
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 
     /**

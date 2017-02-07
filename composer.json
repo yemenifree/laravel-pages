@@ -6,7 +6,7 @@
         }
     },
     "require": {
-        "cviebrock/eloquent-sluggable": "^4.2.1"
+        "spatie/laravel-sluggable": "^1.4"
     },
     "require-dev": {
         "laravel/laravel": "^5.1||^5.4",
