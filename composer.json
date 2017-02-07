@@ -6,10 +6,10 @@
         }
     },
     "require": {
-        "cviebrock/eloquent-sluggable": "^3.0"
+        "cviebrock/eloquent-sluggable": "^4.2.1"
     },
     "require-dev": {
-        "laravel/laravel": "^5.1",
+        "laravel/laravel": "^5.1||^5.4",
         "phpunit/phpunit": "4.*"
     },
     "autoload-dev": {

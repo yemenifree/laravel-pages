@@ -1,14 +1,13 @@
 <?php namespace Gbrock\Pages\Models;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait as Sluggable;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Gbrock\Pages\Traits\Domainable;
 use Gbrock\Pages\Traits\Excerptable;
 use Gbrock\Pages\Traits\Publishable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Page extends Model implements SluggableInterface {
+class Page extends Model {
 
     use Sluggable,
         SoftDeletes,
@@ -41,13 +40,19 @@ class Page extends Model implements SluggableInterface {
     ];
 
     /**
-     * How to generate the model's slug.
-     * @var array
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
      */
-    protected $sluggable = [
-        'build_from' => ['title'],
-        'method' => [self::class, 'generateSlug'],
-    ];
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'method' => [self::class, 'generateSlug'],
+            ]
+        ];
+    }
 
     protected function generateSlug($string)
     {
